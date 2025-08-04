@@ -1,0 +1,9 @@
+# Ignore data and reports
+data/
+reports/
+*.log
+
+# Bytecode and env
+__pycache__/
+*.pyc
+.env
