@@ -1,33 +1,37 @@
-**Market Report** is a Python-based data collection and reporting tool that scrapes 
-financial data for selected stocks and generates human-friendly reports.  
-It combines company fundamentals with news headlines to give a concise view of a 
-company’s recent performance and sentiment.
+A Python-based tool that scrapes financial data for user-selected stock tickers and generates human-readable summaries. It combines fundamental information and recent news sentiment to provide a concise overview of a company's performance.
 
 This project is designed to:
-- Demonstrate web scraping, logging, and structured data handling
-- Store data in a machine- and human-readable format
-- Generate reports that summarize scraped data
 
----
+    Demonstrate web scraping, logging, and structured data handling
+    Validate ticker inputs against the official Nasdaq listed symbols file
+    Store data in both machine- and human-readable formats
+    Lay the foundation for future report generation
 
-## Features
+Features
+    Validates stock symbols against a locally cached Nasdaq listing
+    Scrapes company details and recent headlines from Yahoo Finance
+    Custom logger supports multiple severity levels and daily log rotation
+    Stores data in JSON and CSV formats
+    Modular project layout for future scalability
 
-    Scrapes company info from Yahoo Finance
-    Pulls recent news headlines per ticker
-    Uses a custom logger for clean logging and debugging
-    Stores cleaned data in JSON and CSV formats
-    (Planned) PDF report generation
-    (Planned) SQL integration for structured data storage
+Planned Additions
+    Report generation in one or more exportable formats
+    SQL support for structured data storage
+    Company name-based search for more flexible input
+    Interactive command-line prompts for better user experience
 
----
+Folder Structure
+    market_report/
+    ├── data/                  # JSON and CSV outputs
+    ├── logs/                  # Daily log files
+    ├── scrapers/             # Web scraping modules
+    ├── report_generator/     # Report formatting and export (future)
+    ├── utils/                # Supporting modules (e.g., logger)
+    ├── requirements.txt      # Dependencies
+    ├── README.md             # Project documentation
 
-## Folder Structure
-
-market_report/
-├── data/
-├── logger.py
-├── report_generator/
-├── scrapers/
-├── utils/
-├── requirements.txt
-├── README.md
+Tech Stack
+    Python 3.13.6
+    requests
+    logging
+    os, sys, json, csv, datetime
