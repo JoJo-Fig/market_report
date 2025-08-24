@@ -1,9 +1,11 @@
 # Ignore data and reports
 data/
 reports/
+logs/
 *.log
 
 # Bytecode and env
 __pycache__/
 *.pyc
 .env
+venv/

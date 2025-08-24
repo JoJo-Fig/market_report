@@ -1,3 +1,15 @@
+#validation.py
+import sys
+from scraper.nasdaq_tickers import get_nasdaq_listed
+from utils.logger import Logger
+
+logger = Logger("logs")
+
+def get_user_tickers():
+    user_tickers = input("Enter ticker symbols, separated by commas: ")
+    tickers = user_tickers.split(",")
+    return tickers
+
 def validate_tickers(tickers: list[str], reference: dict[str, str], logger=None):
     clean = [t.strip().upper() for t in tickers]
     ref_symbols = set(reference.keys())
@@ -17,18 +29,31 @@ def validate_tickers(tickers: list[str], reference: dict[str, str], logger=None)
 
     return valid_tickers, invalid_tickers
 
-"""     TEST CODE FOR TICKER VALIDATION
-if __name__ == "__main__":
-    from utils.logger import Logger
-    from utils.validation import validate_tickers
+def interactive_ticker_input():
+    df = get_nasdaq_listed()
+    if df.empty:
+        if logger:
+            logger.critical("No NASDAQ data available. Exiting.")
+        sys.exit(1)
+    reference_data = dict(zip(df["Symbol"], df["Security Name"]))
 
-    logger = Logger(print_to_console=True)
-    
-    tickers_input = ["aapl", "msft", "xyz", "GOOGL "]
-    reference_data = {
-        "AAPL": "Apple Inc.",
-        "MSFT": "Microsoft Corporation",
-        "GOOGL": "Alphabet Inc."
-    }
-    validate_tickers(tickers_input, reference_data, logger=logger)
-"""
+    while True:
+        tickers = get_user_tickers()
+        valid, invalid = validate_tickers(tickers, reference_data, logger)
+        print("Valid ticker(s): ", valid)
+        if invalid:
+            print("Invalid ticker(s): ", invalid)
+        print("\nOptions:")
+        print("1. Retry input")
+        print("2. Continue with valid ticker(s)")
+        print("3. Exit menu")
+        choice = input("Choose an option - (1/2/3)" ).strip()
+
+        if choice == "1":
+            continue
+        elif choice == "2":
+            return valid
+        elif choice == "3":
+            return None
+        else:
+            print("Invalid choice. Please enter 1, 2, or 3.")
