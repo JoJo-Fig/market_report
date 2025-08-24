@@ -9,7 +9,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 import matplotlib.pyplot as plt
 from utils.logger import Logger
 
-logger = Logger("market_report/logs.log")
+logger = Logger("logs")
 
 def generate_report_from_json(data: list[dict]) -> str | None:
     if not data:
